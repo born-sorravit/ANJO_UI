@@ -1,5 +1,7 @@
 import 'package:anjo_ui/models/models.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:get/get_connect/http/src/utils/utils.dart';
 
 class BottomSheetInterest extends StatefulWidget {
   @override
@@ -9,6 +11,9 @@ class BottomSheetInterest extends StatefulWidget {
 class _BottomSheetInterestState extends State<BottomSheetInterest> {
   int index_interest = 0;
   var currentindex_interest = 0;
+  String _interest = '';
+  String _gender = '';
+
 
   void select_interest(int index_interest) {
     setState(() {
@@ -42,6 +47,10 @@ class _BottomSheetInterestState extends State<BottomSheetInterest> {
                 RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
             onPressed: () {
               select_interest(index_interest);
+              setState(() {
+                _gender = value;
+              });
+              print(_gender);
             },
             child: Container(
               padding: EdgeInsets.all(10),
@@ -87,14 +96,16 @@ class _BottomSheetInterestState extends State<BottomSheetInterest> {
                 ),
                 trailing: TextButton(
                   child: Text(
-                    "ยกเลิก",
+                    "บันทึก",
                     style: TextStyle(
                       fontSize: 14,
                       color: Colors.black54,
-                      fontWeight: FontWeight.w300,
+                      fontFamily: 'Prompt',
                     ),
                   ),
-                  onPressed: () => Navigator.pop(context),
+                  
+                  onPressed: () async => 
+                  Get.back(result:[_interest , _gender])
                 ),
               )),
           Container(
@@ -114,10 +125,9 @@ class _BottomSheetInterestState extends State<BottomSheetInterest> {
           ),
           Column(
             children: [
-               SizedBox(
-                  height: size.height * 0.01,
-                ),
-                
+              SizedBox(
+                height: size.height * 0.01,
+              ),
               ...listInterest.map(buildSingleCheckBox).toList(),
             ],
           )
@@ -125,10 +135,10 @@ class _BottomSheetInterestState extends State<BottomSheetInterest> {
       ),
     );
   }
-
-  Widget buildSingleCheckBox(CheckBokState checkbox) => Row(
+    // Controller c = Get.put(Controller());
+  Widget buildSingleCheckBox(CheckBokState checkbox) => 
+      Row(
         children: [
-
           Expanded(
             child: Padding(
               padding: EdgeInsets.fromLTRB(10, 0, 0, 0),
@@ -139,14 +149,17 @@ class _BottomSheetInterestState extends State<BottomSheetInterest> {
                       margin: EdgeInsets.zero,
                       shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(0)),
-                      color: checkbox.value == true ? Colors.white : Colors.white,
+                      color:
+                          checkbox.value == true ? Colors.white : Colors.white,
                       child: ListTile(
-                        visualDensity: VisualDensity(horizontal: 0, vertical: -2),
+                        visualDensity:
+                            VisualDensity(horizontal: 0, vertical: -2),
                         title: Text(
                           checkbox.title,
                           style: TextStyle(
-                            color:
-                                checkbox.value == true ? Colors.pink : Colors.black87,
+                            color: checkbox.value == true
+                                ? Colors.pink
+                                : Colors.black87,
                           ),
                         ),
                         trailing: checkbox.value == true
@@ -158,9 +171,15 @@ class _BottomSheetInterestState extends State<BottomSheetInterest> {
                         onTap: () {
                           setState(() {
                             checkbox.value = !checkbox.value;
+                            // c.a.value = checkbox.title;
+                            // print(c.a.obs);
+                            _interest = checkbox.title;
+                            print(checkbox.value);
+                            // checkbox.value = false;
                           });
                         },
-                      )),Divider(height: 0.5),
+                      )),
+                  Divider(height: 0.5),
                 ],
               ),
             ),
@@ -168,3 +187,12 @@ class _BottomSheetInterestState extends State<BottomSheetInterest> {
         ],
       );
 }
+
+// class Controller extends GetxController {
+
+//   RxString a = ''.obs;
+
+//   // void test(){
+//   //   a.value = ;
+//   // }
+// }

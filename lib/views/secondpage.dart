@@ -4,6 +4,7 @@ import 'package:anjo_ui/views/Components/selectgender.dart';
 import 'package:anjo_ui/views/Components/selectinterest.dart';
 import 'package:anjo_ui/views/thirdpage.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 import 'Components/InputOther.dart';
 
@@ -39,7 +40,7 @@ class _SecondPageState extends State<SecondPage> {
       appBar: AppBar(
         leading: new IconButton(
           icon: new Icon(Icons.arrow_back_ios, color: Colors.black),
-          onPressed: () => Navigator.of(context).pop(true),
+          onPressed: () => Get.back(),
         ),
         centerTitle: true,
         title: Text(

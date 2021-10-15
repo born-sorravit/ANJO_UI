@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 import 'Components/FormProfile.dart';
 
@@ -61,7 +62,7 @@ class _ThirdPageState extends State<ThirdPage> {
       appBar: AppBar(
         leading: new IconButton(
           icon: new Icon(Icons.arrow_back_ios, color: Colors.black87),
-          onPressed: () => Navigator.of(context).pop(true),
+          onPressed: () => Get.back(),
         ),
         centerTitle: true,
         title: const Text(

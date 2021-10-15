@@ -1,6 +1,8 @@
 import 'package:anjo_ui/views/secondpage.dart';
+import 'package:anjo_ui/views/test.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'Components/ButtonSubmit.dart';
 import 'Components/InputDOB.dart';
 import 'Components/InputText.dart';
@@ -22,8 +24,23 @@ class _FirstPageState extends State<FirstPage> {
   final month = TextEditingController();
   final year = TextEditingController();
   String textValidation = '';
-  DateTime now = DateTime.now();
-  String formattedDate = DateFormat('yyyy').format(DateTime.now());
+  DateTime? date;
+
+  Future<void> _selectDate(BuildContext context) async {
+    final now = DateTime.now();
+    final DateTime? picked = await showDatePicker(
+        context: context,
+        initialDate: date ?? now,
+        firstDate: DateTime(1970),
+        lastDate: now);
+    if (picked != null && picked != date) {
+      setState(() {
+        day.text = DateFormat('dd').format(picked);
+        month.text = DateFormat('MM').format(picked);
+        year.text = DateFormat('yyyy').format(picked);
+      });
+    }
+  }
 
   bool _switchValue = true;
   @override
@@ -113,6 +130,15 @@ class _FirstPageState extends State<FirstPage> {
                           style: TextStyle(
                               fontSize: 16, fontWeight: FontWeight.bold),
                         ),
+                        trailing: IconButton(
+                          icon: Icon(
+                            Icons.calendar_today,
+                            size: 20,
+                          ),
+                          onPressed: () {
+                            _selectDate(context);
+                          },
+                        ),
                       ),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -123,12 +149,6 @@ class _FirstPageState extends State<FirstPage> {
                             hintText: 'วัน',
                             width: 0.17,
                             textvalidate: textValidation,
-                            onChanged: (_) {
-                              if (int.parse(day.text) > 31) {
-                                textValidation = "day is't correct";
-                                print(textValidation);
-                              }
-                            },
                           ),
                           InputDOB(
                             size: size,
@@ -136,12 +156,6 @@ class _FirstPageState extends State<FirstPage> {
                             hintText: 'เดือน',
                             width: 0.2,
                             textvalidate: textValidation,
-                            onChanged: (_) {
-                              if (int.parse(month.text) > 12) {
-                                textValidation = "month is't correct";
-                                print(textValidation);
-                              }
-                            },
                           ),
                           InputDOB(
                             size: size,
@@ -149,12 +163,6 @@ class _FirstPageState extends State<FirstPage> {
                             hintText: 'ปี',
                             width: 0.2,
                             textvalidate: textValidation,
-                            onChanged: (_) {
-                              if (int.parse(year.text) > int.parse(formattedDate)) {
-                                textValidation = "year is't correct";
-                                print(textValidation);
-                              }
-                            },
                           ),
                         ],
                       ),

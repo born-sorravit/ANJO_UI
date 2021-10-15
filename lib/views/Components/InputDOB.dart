@@ -5,7 +5,6 @@ class InputDOB extends StatefulWidget {
   final String hintText;
   final double width;
   final String textvalidate;
-  final ValueChanged<String>? onChanged;
 
   final TextEditingController _input;
   const InputDOB({
@@ -14,7 +13,7 @@ class InputDOB extends StatefulWidget {
     required TextEditingController input,
     required this.hintText,
     required this.width,
-    required this.textvalidate, this.onChanged,
+    required this.textvalidate,
   })  : _input = input,
         super(key: key);
 
@@ -37,30 +36,28 @@ class _InputDOBState extends State<InputDOB> {
               children: [
                 Container(
                     child: TextFormField(
-                        controller: widget._input,
-                        
-                        keyboardType: TextInputType.number,
-                        textAlign: TextAlign.center,
-                        decoration: InputDecoration(
-                          contentPadding: EdgeInsets.only(left: 20, right: 20),
-                          border: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(10.0),
-                          ),
-                          hintStyle:
-                              TextStyle(color: Colors.grey[500], fontSize: 14),
-                          hintText: widget.hintText,
-                          errorStyle: TextStyle(
-                            height: 0,
-                            fontSize: 14.0,
-                          ),
-                        ),
-                        validator: (value) {
-                          if (value == null || value.isEmpty) {
-                            return '';
-                          }
-                          return null;
-                        },
-                        onChanged: widget.onChanged,)),
+                  controller: widget._input,
+                  keyboardType: TextInputType.number,
+                  textAlign: TextAlign.center,
+                  decoration: InputDecoration(
+                    contentPadding: EdgeInsets.only(left: 20, right: 20),
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(10.0),
+                    ),
+                    hintStyle: TextStyle(color: Colors.grey[500], fontSize: 14),
+                    hintText: widget.hintText,
+                    errorStyle: TextStyle(
+                      height: 0,
+                      fontSize: 14.0,
+                    ),
+                  ),
+                  validator: (value) {
+                    if (value == null || value.isEmpty) {
+                      return '';
+                    }
+                    return null;
+                  },
+                )),
               ],
             )),
       ],

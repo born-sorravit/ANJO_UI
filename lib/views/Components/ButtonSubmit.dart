@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 class ButtonSubmit extends StatefulWidget {
   final StatefulWidget page;
@@ -29,10 +30,7 @@ class _ButtonSubmitState extends State<ButtonSubmit> {
         style: ElevatedButton.styleFrom(shape: StadiumBorder(), elevation: 1),
         onPressed: () {
           if (widget.validate.currentState!.validate()) {
-            Navigator.push(
-              context,
-              MaterialPageRoute<dynamic>(builder: (context) => widget.page),
-            );
+            Get.to(widget.page);
           }
         },
       ),
